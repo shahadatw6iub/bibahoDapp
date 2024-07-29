@@ -1,0 +1,25 @@
+{
+    "information": [
+        {
+            "id": 1234,
+            "name": "Shahal",
+            "age" : true
+        },
+        {
+            "id": 1234,
+            "name": "Anika",
+            "age" : true
+        },
+        {
+            "id": 1234,
+            "name": "Fahim",
+            "age" : false
+        },
+        {
+            "id": 1234,
+            "name": "Nilima",
+            "age" : false
+        }
+
+]
+}
