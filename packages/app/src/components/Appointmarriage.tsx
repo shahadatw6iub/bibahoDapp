@@ -23,8 +23,7 @@ function Appointmarriage() {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedOffice, setSelectedOffice] = useState("");
-  const [appointmentInfo, setAppointmentInfo] =
-    useState<AppointmentInfo | null>(null);
+  const [appointmentInfo, setAppointmentInfo] = useState<AppointmentInfo | null>(null);
   const [idCounter, setIdCounter] = useState(0);
 
   useEffect(() => {
@@ -158,7 +157,12 @@ function Appointmarriage() {
             tone="solid"
             radius="none"
             value={selectedCountry}
-            onChange={(val) => setSelectedCountry(val)}
+            onChange={(val) => {
+              // Ensure val is a string before setting the state
+              if (typeof val === "string") {
+                setSelectedCountry(val);
+              }
+            }}
           >
             {countryData.countries.map((country, index) => (
               <Combobox.Option
@@ -180,7 +184,12 @@ function Appointmarriage() {
               tone="solid"
               radius="none"
               value={selectedCity}
-              onChange={(val) => setSelectedCity(val)}
+              onChange={(val) => {
+                // Ensure val is a string before setting the state
+                if (typeof val === "string") {
+                  setSelectedCity(val);
+                }
+              }}
             >
               {selectedCountryData?.cities.map((city, index) => (
                 <Combobox.Option
@@ -203,7 +212,12 @@ function Appointmarriage() {
               tone="solid"
               radius="none"
               value={selectedOffice}
-              onChange={(val) => setSelectedOffice(val)}
+              onChange={(val) => {
+                // Ensure val is a string before setting the state
+                if (typeof val === "string") {
+                  setSelectedOffice(val);
+                }
+              }}
             >
               {selectedCountryData?.cities
                 .find((city) => city.name === selectedCity)
