@@ -42,8 +42,8 @@ function HeroSection() {
           <Image
             src="/images/solana.png"
             alt="solana"
-            width={300}
-            height={300}
+            width={150}
+            height={150}
             className="object-contain"
           />
         </div>

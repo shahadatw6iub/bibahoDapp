@@ -1,7 +1,7 @@
 import React from "react";
-import NFTCard from "@/components/NFTCard";
-import Footer from "@/components/Footer";
-import { AuroraBackground } from "@/components/ui/aurora-background";
+import NFTCard from "../../components/NFTCard";
+import Footer from "../../components/Footer";
+import { AuroraBackground } from "../../components/ui/aurora-background";
 
 function Page() {
   return (

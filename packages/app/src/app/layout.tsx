@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "../components/Navbar";
-import FloatingNavbar from "@/components/FloatingNavbar";
+import FloatingNavbar from "../components/FloatingNavbar";
 const inter = Inter({ subsets: ["latin"] });
-
 
 export const metadata: Metadata = {
   title: "Bibaho-Bondhon",
@@ -19,9 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={inter.className}>
-        <div>
-
-        </div>
+        <div></div>
         <FloatingNavbar />
         <div className="relative w-full flex items-center justify"></div>
         {children}

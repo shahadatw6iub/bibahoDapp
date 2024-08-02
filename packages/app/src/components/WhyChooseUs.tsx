@@ -17,7 +17,6 @@ const content = WhyChooseUsData.map((item: WhyChooseUsItem, index: number) => ({
           "linear-gradient(to bottom right, var(--cyan-500), var(--emerald-500))",
       }}
     >
-
       {item.title}
     </div>
   ),

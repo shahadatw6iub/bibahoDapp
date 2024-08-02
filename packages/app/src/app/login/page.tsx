@@ -1,11 +1,11 @@
 "use client";
 
 import React, { FormEvent, useState } from "react";
-import { BackgroundBeams } from "@/components/ui/background-beams";
-import { Button } from "@/components/ui/moving-border";
+import { BackgroundBeams } from "../../components/ui/background-beams";
+import { Button } from "../../components/ui/moving-border";
 import Link from "next/link";
 import { Label } from "@radix-ui/react-label";
-import { Input } from "@/components/ui/input";
+import { Input } from "../../components/ui/input";
 import { cn } from "@/utils/cn";
 
 function Login() {

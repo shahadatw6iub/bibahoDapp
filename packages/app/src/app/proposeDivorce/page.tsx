@@ -1,9 +1,9 @@
 import React from "react";
-import ProposeMarriage from "@/components/ProposeMarriage";
-import { BackgroundGradientAnimation } from "@/components/ui/background-gradient-animation";
-import Footer from "@/components/Footer";
-import { AuroraBackground } from "@/components/ui/aurora-background";
-import ProposeDivorce from "@/components/ProposeDivorce";
+import ProposeMarriage from "../../components/ProposeMarriage";
+import { BackgroundGradientAnimation } from "../../components/ui/background-gradient-animation";
+import Footer from "../../components/Footer";
+import { AuroraBackground } from "../../components/ui/aurora-background";
+import ProposeDivorce from "../../components/ProposeDivorce";
 
 function Page() {
   return (

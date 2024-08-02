@@ -1,16 +1,16 @@
-import { Providers } from "@/components/Providers";
-import { Greeting } from "@/components/Greeting";
+import { Providers } from "../../components/Providers";
+import { Greeting } from "../../components/Greeting";
 import "./globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import "react-toastify/dist/ReactToastify.css";
 import { Inter } from "next/font/google";
-import { Header } from "@/components/Header";
+import { Header } from "../../components/Header";
 import { ToastContainer } from "react-toastify";
-import { PhantomWalletProvider } from "@/hooks/usePhantomWallet";
-import ConnectWallet from "@/components/ConnectWallet";
+import { PhantomWalletProvider } from "../../hooks/usePhantomWallet";
+import ConnectWallet from "../../components/ConnectWallet";
 import Link from "next/link"; // Import the Link component from Next.js
-import Footer from "@/components/Footer";
-import { AuroraBackground } from "@/components/ui/aurora-background";
+import Footer from "../../components/Footer";
+import { AuroraBackground } from "../../components/ui/aurora-background";
 
 const Home = () => {
   return (

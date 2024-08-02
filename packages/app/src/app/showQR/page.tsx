@@ -1,8 +1,8 @@
 import React from "react";
-import Footer from "@/components/Footer";
+import Footer from "../../components/Footer";
 import Image from "next/image";
 import Link from "next/link";
-import { AuroraBackground } from "@/components/ui/aurora-background";
+import { AuroraBackground } from "../../components/ui/aurora-background";
 
 function Page() {
   return (

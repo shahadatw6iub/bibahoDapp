@@ -1,5 +1,5 @@
-import Footer from "@/components/Footer";
-import { AuroraBackground } from "@/components/ui/aurora-background";
+import Footer from "../../components/Footer";
+import { AuroraBackground } from "../../components/ui/aurora-background";
 import Link from "next/link";
 import React from "react";
 

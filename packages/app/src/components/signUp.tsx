@@ -1,8 +1,8 @@
 "use client";
 
 import React, { FormEvent, useState } from "react";
-import { BackgroundBeams } from "@/components/ui/background-beams";
-import { Button } from "@/components/ui/moving-border";
+import { BackgroundBeams } from "./ui/background-beams";
+import { Button } from "./ui/moving-border";
 import Link from "next/link";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
