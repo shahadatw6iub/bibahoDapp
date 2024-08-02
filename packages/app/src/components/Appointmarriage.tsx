@@ -5,6 +5,17 @@ import countryData from "../data/registerLocation.json";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
+// Define an interface for appointment information
+interface AppointmentInfo {
+  id: number;
+  name: string;
+  mobile: string;
+  date: string;
+  country: string;
+  city: string;
+  office: string;
+}
+
 function Appointmarriage() {
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
@@ -12,7 +23,8 @@ function Appointmarriage() {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedOffice, setSelectedOffice] = useState("");
-  const [appointmentInfo, setAppointmentInfo] = useState(null);
+  const [appointmentInfo, setAppointmentInfo] =
+    useState<AppointmentInfo | null>(null);
   const [idCounter, setIdCounter] = useState(0);
 
   useEffect(() => {
@@ -26,6 +38,11 @@ function Appointmarriage() {
   );
 
   const generatePDF = () => {
+    if (!appointmentInfo) {
+      console.error("Appointment info is not available");
+      return;
+    }
+
     const doc = new jsPDF();
 
     doc.text("Appointment Details", 10, 10);
@@ -47,7 +64,7 @@ function Appointmarriage() {
   };
 
   const handleSubmit = async () => {
-    const appointmentData = {
+    const appointmentData: AppointmentInfo = {
       id: idCounter,
       name,
       mobile,
