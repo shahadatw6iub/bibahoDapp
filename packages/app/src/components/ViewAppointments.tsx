@@ -13,7 +13,7 @@ const useFetchAppointments = () => {
         if (!response.ok) throw new Error("Failed to fetch appointments.");
         const data = await response.json();
         setAppointments(data);
-      } catch (err) {
+      } catch (err:any) {
         setError(err.message);
       } finally {
         setLoading(false);
