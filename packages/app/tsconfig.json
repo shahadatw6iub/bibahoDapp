@@ -21,6 +21,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/appointDivorce", "src/components/ui/calender.tsxapp/abi/api/saveAppointment.tsx", "src/app/api/saveAppointment.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/appointDivorce", "src/components/ui/calender.tsxapp/abi/api/saveAppointment.tsx", "src/components/pages/api/saveAppointment.tsx"],
   "exclude": ["node_modules"]
 }
