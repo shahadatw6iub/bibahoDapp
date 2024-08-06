@@ -24,7 +24,7 @@ export const BackgroundGradient = ({
   };
 
   return (
-    <div className={cn("relative p-[4px] group overflow-hidden", containerClassName)}>
+    <div className={cn("relative p-[4px] group", containerClassName)}>
       <motion.div
         variants={animate ? variants : undefined}
         initial={animate ? "initial" : undefined}

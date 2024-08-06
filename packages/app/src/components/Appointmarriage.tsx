@@ -1,9 +1,12 @@
+// File: components/ui/Appointmarriage.tsx
+
 import React, { useState, useEffect } from "react";
 import { format, isValid } from "date-fns";
 import { Combobox } from "@rewind-ui/core";
 import countryData from "../data/registerLocation.json";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+import BottomGradient from "../components/ui/bottomGradient";
 
 // Define an interface for appointment information
 interface AppointmentInfo {
@@ -23,7 +26,8 @@ function Appointmarriage() {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedOffice, setSelectedOffice] = useState("");
-  const [appointmentInfo, setAppointmentInfo] = useState<AppointmentInfo | null>(null);
+  const [appointmentInfo, setAppointmentInfo] =
+    useState<AppointmentInfo | null>(null);
   const [idCounter, setIdCounter] = useState(0);
 
   useEffect(() => {
@@ -74,7 +78,7 @@ function Appointmarriage() {
     };
 
     try {
-      const response = await fetch("http://localhost:3001/saveAppointment", {
+      const response = await fetch("/api/saveAppointment", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -83,12 +87,12 @@ function Appointmarriage() {
       });
 
       if (response.ok) {
-        console.log("Appointment saved successfully!");
-        setAppointmentInfo(appointmentData); // Update the state with the appointment data
-        setIdCounter((prev) => prev + 1); // Increment the ID for the next appointment
-        generatePDF(); // Generate and save PDF
+        const data = await response.json();
+        console.log(data.message);
+        setAppointmentInfo(appointmentData); // Set the appointment information to display it
+        setIdCounter((prev) => prev + 1); // Increment the ID counter
       } else {
-        console.error("Failed to save appointment.");
+        console.error("Failed to create appointment");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -103,17 +107,17 @@ function Appointmarriage() {
       <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300">
         The process
       </p>
-      <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black mt-10">
+      <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black mt-10 mb-10">
         <div className="font-extralight text-sm md:text-lg lg:text-xl dark:text-neutral-200 py-4 text-center max-w-4xl">
           Select a date
         </div>
-        <div className="flex flex-col gap-4 mb-4">
+        <div className="w-full p-4 rounded-lg border border-neutral-800 focus:ring-2 focus:ring-teal-500 bg-neutral-950 placeholder:text-neutral-700 text-white">
           <div className="dark:text-neutral-200">
             Selected date: {date && isValid(date) && format(date, "yyyy-MM-dd")}
           </div>
           <input
             type="date"
-            className="w-full p-2 mb-4 border rounded"
+            className="w-full p-4 rounded-lg border border-neutral-800 focus:ring-2 focus:ring-teal-500 bg-neutral-800 placeholder:text-neutral-700 text-white"
             onChange={(event) => {
               setDate(
                 event.target.value && isValid(new Date(event.target.value))
@@ -131,7 +135,7 @@ function Appointmarriage() {
           <input
             type="text"
             placeholder="Enter your name..."
-            className="w-full p-2 mb-4 border rounded"
+            className="w-full p-4 rounded-lg border border-neutral-800 focus:ring-2 focus:ring-teal-500 bg-neutral-950 placeholder:text-neutral-700 text-white"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
@@ -141,7 +145,7 @@ function Appointmarriage() {
           <input
             type="text"
             placeholder="Enter your mobile number..."
-            className="w-full p-2 mb-4 border rounded"
+            className="w-full p-4 rounded-lg border border-neutral-800 focus:ring-2 focus:ring-teal-500 bg-neutral-950 placeholder:text-neutral-700 text-white"
             value={mobile}
             onChange={(e) => setMobile(e.target.value)}
           />
@@ -149,13 +153,14 @@ function Appointmarriage() {
             Location
           </div>
           <Combobox
+            className="w-full p-4 rounded-lg border border-neutral-800 focus:ring-2 focus:ring-teal-500 bg-neutral-800 placeholder:text-neutral-700 text-white"
             color="dark"
             mode="tight"
             placeholder="Select a country..."
             shadow="lg"
             size="lg"
             tone="solid"
-            radius="none"
+            radius="lg"
             value={selectedCountry}
             onChange={(val) => {
               // Ensure val is a string before setting the state
@@ -176,13 +181,14 @@ function Appointmarriage() {
         {selectedCountry && (
           <div className="flex flex-col gap-4 mb-4">
             <Combobox
+              className="w-full p-4 rounded-lg border border-neutral-800 focus:ring-2 focus:ring-teal-500 bg-neutral-800 placeholder:text-neutral-700 text-white"
               color="dark"
               mode="tight"
               placeholder="Select a city..."
               shadow="lg"
               size="lg"
               tone="solid"
-              radius="none"
+              radius="lg"
               value={selectedCity}
               onChange={(val) => {
                 // Ensure val is a string before setting the state
@@ -204,13 +210,14 @@ function Appointmarriage() {
         {selectedCity && (
           <div className="flex flex-col gap-4 mb-4">
             <Combobox
+              className="w-full p-4 rounded-lg border border-neutral-800 focus:ring-2 focus:ring-teal-500 bg-neutral-800 placeholder:text-neutral-700 text-white"
               color="dark"
               mode="tight"
               placeholder="Select a registration office..."
               shadow="lg"
               size="lg"
               tone="solid"
-              radius="none"
+              radius="lg"
               value={selectedOffice}
               onChange={(val) => {
                 // Ensure val is a string before setting the state
@@ -229,10 +236,11 @@ function Appointmarriage() {
         )}
         <button
           onClick={handleSubmit}
-          className="mt-6 pd-5 border border-neutral-800 mx-4 bg-gradient-to-br relative group/btn from-black dark:from-zinc dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
+          className="mt-10 pd-5 border border-neutral-800 mx-4 bg-gradient-to-br relative group/btn from-black dark:from-zinc dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
           type="button"
         >
           Make an Appointment
+          <BottomGradient />
         </button>
       </div>
 
