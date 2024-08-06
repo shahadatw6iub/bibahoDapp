@@ -1,19 +1,29 @@
 "use client";
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+
+// Define the structure of an appointment
+interface Appointment {
+  id: number;
+  name: string;
+  date: string;
+  country: string;
+  city: string;
+  office: string;
+}
+
 const useFetchAppointments = () => {
-  const [appointments, setAppointments] = useState([]);
+  const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch("/api/getAppointment");
         if (!response.ok) throw new Error("Failed to fetch appointments.");
-        const data = await response.json();
+        const data: Appointment[] = await response.json();
         setAppointments(data);
-      } catch (err:any) {
+      } catch (err: any) {
         setError(err.message);
       } finally {
         setLoading(false);
@@ -25,6 +35,7 @@ const useFetchAppointments = () => {
 
   return { appointments, loading, error };
 };
+
 const AppointmentsPage: React.FC = () => {
   const { appointments, loading, error } = useFetchAppointments();
 
@@ -46,8 +57,8 @@ const AppointmentsPage: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {appointments.map((appointment, index) => (
-              <tr key={index} className="bg-gray-100 dark:bg-gray-700">
+            {appointments.map((appointment) => (
+              <tr key={appointment.id} className="bg-gray-100 dark:bg-gray-700">
                 <td className="border px-4 py-2">{appointment.name}</td>
                 <td className="border px-4 py-2">{appointment.date}</td>
                 <td className="border px-4 py-2">{appointment.country}</td>
