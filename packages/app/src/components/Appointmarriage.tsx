@@ -1,5 +1,3 @@
-// File: components/ui/Appointmarriage.tsx
-
 import React, { useState, useEffect } from "react";
 import { format, isValid } from "date-fns";
 import { Combobox } from "@rewind-ui/core";
@@ -17,6 +15,7 @@ interface AppointmentInfo {
   country: string;
   city: string;
   office: string;
+  nid: string;
 }
 
 function Appointmarriage() {
@@ -26,13 +25,13 @@ function Appointmarriage() {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedOffice, setSelectedOffice] = useState("");
+  const [nid, setNid] = useState("");
   const [appointmentInfo, setAppointmentInfo] =
     useState<AppointmentInfo | null>(null);
   const [idCounter, setIdCounter] = useState(0);
 
   useEffect(() => {
     // Fetch the latest ID counter from the backend or local storage
-    // For simplicity, we'll just initialize with 1 here.
     setIdCounter(1); // Initialize with 1 or fetch from a persistent store
   }, []);
 
@@ -47,7 +46,6 @@ function Appointmarriage() {
     }
 
     const doc = new jsPDF();
-
     doc.text("Appointment Details", 10, 10);
     autoTable(doc, {
       startY: 20,
@@ -59,6 +57,7 @@ function Appointmarriage() {
         ["Country", appointmentInfo.country],
         ["City", appointmentInfo.city],
         ["Office", appointmentInfo.office],
+        ["NID", appointmentInfo.nid],
       ],
     });
 
@@ -75,6 +74,7 @@ function Appointmarriage() {
       country: selectedCountry,
       city: selectedCity,
       office: selectedOffice,
+      nid,
     };
 
     try {
@@ -86,16 +86,26 @@ function Appointmarriage() {
         body: JSON.stringify(appointmentData),
       });
 
+      const data = await response.json();
       if (response.ok) {
-        const data = await response.json();
-        console.log(data.message);
         setAppointmentInfo(appointmentData); // Set the appointment information to display it
         setIdCounter((prev) => prev + 1); // Increment the ID counter
+        alert(data.message);
+
+        // Clear the fields
+        setName("");
+        setMobile("");
+        setDate(undefined);
+        setSelectedCountry("");
+        setSelectedCity("");
+        setSelectedOffice("");
+        setNid("");
       } else {
-        console.error("Failed to create appointment");
+        alert(data.error); // Display the error message
       }
     } catch (error) {
       console.error("Error:", error);
+      alert("An error occurred. Please try again.");
     }
   };
 
@@ -128,30 +138,40 @@ function Appointmarriage() {
             value={date && isValid(date) ? format(date, "yyyy-MM-dd") : ""}
           />
         </div>
-        <div className="font-extralight text-sm md:text-lg lg:text-xl dark:text-neutral-200 max-w-4xl">
+        <div className="mt-6 font-extralight text-sm md:text-lg lg:text-xl dark:text-neutral-200 max-w-4xl">
           Name
         </div>
+        <input
+          type="text"
+          placeholder="Enter your name..."
+          className="w-full mt-2 p-4 rounded-lg border border-neutral-800 focus:ring-2 focus:ring-teal-500 bg-neutral-950 placeholder:text-neutral-700 text-white"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <div className="mt-6 font-extralight text-sm md:text-lg lg:text-xl dark:text-neutral-200 max-w-4xl">
+          Mobile No
+        </div>
+        <input
+          type="text"
+          placeholder="Enter your mobile number..."
+          className="w-full mt-2 p-4 rounded-lg border border-neutral-800 focus:ring-2 focus:ring-teal-500 bg-neutral-950 placeholder:text-neutral-700 text-white"
+          value={mobile}
+          onChange={(e) => setMobile(e.target.value)}
+        />
+        <div className="mt-6 font-extralight text-sm md:text-lg lg:text-xl dark:text-neutral-200 max-w-4xl">
+          NID
+        </div>
+        <input
+          type="text"
+          placeholder="Enter your NID number..."
+          className="w-full mt-2 p-4 rounded-lg border border-neutral-800 focus:ring-2 focus:ring-teal-500 bg-neutral-950 placeholder:text-neutral-700 text-white"
+          value={nid}
+          onChange={(e) => setNid(e.target.value)}
+        />
+        <div className="mt-6 font-extralight text-sm md:text-lg lg:text-xl dark:text-neutral-200 max-w-4xl">
+          Location
+        </div>
         <div className="flex flex-col gap-4 mb-4">
-          <input
-            type="text"
-            placeholder="Enter your name..."
-            className="w-full p-4 rounded-lg border border-neutral-800 focus:ring-2 focus:ring-teal-500 bg-neutral-950 placeholder:text-neutral-700 text-white"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <div className="font-extralight text-sm md:text-lg lg:text-xl dark:text-neutral-200 max-w-4xl">
-            Mobile No
-          </div>
-          <input
-            type="text"
-            placeholder="Enter your mobile number..."
-            className="w-full p-4 rounded-lg border border-neutral-800 focus:ring-2 focus:ring-teal-500 bg-neutral-950 placeholder:text-neutral-700 text-white"
-            value={mobile}
-            onChange={(e) => setMobile(e.target.value)}
-          />
-          <div className="font-extralight text-sm md:text-lg lg:text-xl dark:text-neutral-200 max-w-4xl">
-            Location
-          </div>
           <Combobox
             className="w-full p-4 rounded-lg border border-neutral-800 focus:ring-2 focus:ring-teal-500 bg-neutral-800 placeholder:text-neutral-700 text-white"
             color="dark"
@@ -265,6 +285,9 @@ function Appointmarriage() {
           </p>
           <p>
             <strong>Office:</strong> {appointmentInfo.office}
+          </p>
+          <p>
+            <strong>NID:</strong> {appointmentInfo.nid}
           </p>
         </div>
       )}
