@@ -9,9 +9,9 @@ export default async function handler(
   if (req.method === "GET") {
     try {
       const client = await clientPromise;
-      const db = client.db("marriageAppointments"); // Replace with your database name
+      const db = client.db("appointments"); // Replace with your database name
       const appointments = await db
-        .collection("appointments")
+        .collection("marriageAppointments")
         .find({})
         .toArray(); // Replace with your collection name
 
